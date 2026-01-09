@@ -6,7 +6,7 @@ import datetime
 
 # ================= CONFIG =================
 
-VOICE_CHANNEL_ID = 1395518819027386398
+VOICE_CHANNEL_ID = 1459023769564741705
 FORCED_NAME = "SLAYZ DOXING/CARDING/ASSASSINAT"
 
 # ==========================================
@@ -15,7 +15,13 @@ intents = discord.Intents.default()
 intents.guilds = True
 intents.voice_states = True
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+
+class MyBot(commands.Bot):
+    async def setup_hook(self):
+        self.loop.create_task(keep_alive())
+
+
+bot = MyBot(command_prefix="!", intents=intents)
 
 rename_lock = False
 
@@ -23,7 +29,7 @@ rename_lock = False
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.invisible)
-    print(f"Connecté en tant que {bot.user} (statut invisible)")
+    print(f"✅ Connecté en tant que {bot.user} (statut invisible)")
 
 
 @bot.event
@@ -56,11 +62,10 @@ async def on_guild_channel_update(before, after):
 
 
 async def keep_alive():
-    while True:
-        print("Bot actif -", datetime.datetime.now())
+    await bot.wait_until_ready()
+    while not bot.is_closed():
+        print("🟢 Bot actif -", datetime.datetime.now())
         await asyncio.sleep(300)
 
-
-bot.loop.create_task(keep_alive())
 
 bot.run(os.environ["TOKEN"])
