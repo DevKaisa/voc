@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import os
+import datetime
 
 # ================= CONFIG =================
 
@@ -54,5 +55,12 @@ async def on_guild_channel_update(before, after):
     rename_lock = False
 
 
-bot.run(os.environ["TOKEN"])
+async def keep_alive():
+    while True:
+        print("Bot actif -", datetime.datetime.now())
+        await asyncio.sleep(300)
 
+
+bot.loop.create_task(keep_alive())
+
+bot.run(os.environ["TOKEN"])
