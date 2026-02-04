@@ -6,8 +6,8 @@ import datetime
 
 # ================= CONFIG =================
 
-VOICE_CHANNEL_ID = 1459023769564741705
-FORCED_NAME = "SLAYZ DOXING/CARDING/ASSASSINAT"
+VOICE_CHANNEL_ID = 1395528440287072439
+FORCED_NAME = "ryu on bz notre racli ! 🐕‍🦺"
 
 # ==========================================
 
